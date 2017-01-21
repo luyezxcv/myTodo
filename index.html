@@ -16,8 +16,8 @@
 		<div class="content-wrapper" >
 			<ol>
 				<li class="todo-list" v-for="(todo,index) in todoList">
+					<input type="checkbox" class="checkbox" v-model="todo.checkbox">
 					<div class="todo-content" @click="check(todo)">
-						<input type="checkbox" class="checkbox" v-model="todo.checkbox">
 						<div class="todo">{{index+1}}、{{todo.todo}}</div>
 						<span class="time">{{todo.time}}</span>
 						<a href="javacript:void(0)" class="detail" @click.stop.prevent="showDetail(todo)">详细</a>
