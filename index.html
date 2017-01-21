@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Todo备忘录</title>
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" type="text/css" href="./css/index.css">
+</head>
+<body>
+	<div class="wrapper" id="app" v-cloak>
+		<h1 class="title">我的Todo</h1>
+		<div class="header-wrapper">
+			<input type="text" class="text" v-model='mytodo' placeholder="e.g.我的Todo" @keyup.enter="todoSubmit">
+			<input type="submit" value="submit" class="submit" @click="todoSubmit">
+		</div>
+		<div class="content-wrapper" >
+			<ol>
+				<li class="todo-list" v-for="(todo,index) in todoList">
+					<div class="todo-content" @click="check(todo)">
+						<input type="checkbox" class="checkbox" v-model="todo.checkbox">
+						<div class="todo">{{index+1}}、{{todo.todo}}</div>
+						<span class="time">{{todo.time}}</span>
+						<a href="javacript:void(0)" class="detail" @click.stop.prevent="showDetail(todo)">详细</a>
+						<a href="javacript:void(0)" class="detach" @click.stop.prevent="detach(todo)">删除</a>
+					</div>
+					<transition name="confirm">
+						<div class="marsk" v-show="todo.confirm">
+							<div class="confirm">
+								<h1>确定删除？</h1>
+								<input type="submit" value="确定" class="yes" @click.stop.prevent="yes(index)">
+								<input type="submit" value="取消" class="no" @click.stop.prevent="no(todo)">
+							</div>
+						</div>
+					</transition>
+					<transition name="detail">			
+						<div class="detail-show" v-show="todo.detailShow">
+							<div class="detail-close" @click.stop.prevent="hideDetail(todo)"></div>
+							<input type="text" class="detail-text" v-model="todo.todo">
+							<textarea class="detail-decoration" placeholder="e.g.详细" v-model="todo.detail">
+							</textarea>
+						</div>
+					</transition>	
+				</li>
+			</ol>
+		</div>
+		<div class="buttom-wrapper">
+			<input type="submit" value="删除" class="detach-sellect" @click="detachSellect">
+			<input type="submit" value="全选/取消" class="sellect-all" @click="sellectAll">
+			<transition name="confirm">
+				<div class="marsk" v-show="confirmAll">
+					<div class="confirm">
+						<h1>确定删除？</h1>
+						<input type="submit" value="确定" class="yes" @click.stop.prevent="yesAll()">
+						<input type="submit" value="取消" class="no" @click.stop.prevent="noAll()">
+					</div>
+				</div>
+			</transition>
+		</div>
+	</div>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+	<script type="text/javascript" src="./js/index.js"></script>
+</body>
+</html>
