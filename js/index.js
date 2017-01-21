@@ -58,7 +58,7 @@ var vm = new Vue({
 			console.log(todo.detailShow);
 		},
 		showDetail(todo) {
-			todo.detailShow = true;
+			todo.detailShow = !todo.detailShow;
 		},
 		check(todo){
 			todo.checkbox = !todo.checkbox;
